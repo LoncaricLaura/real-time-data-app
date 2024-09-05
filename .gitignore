@@ -1,0 +1,23 @@
+# Cabal build artifacts
+dist-newstyle/
+
+# GHC build artifacts
+*.hi
+*.o
+*.pdb
+
+# Haskell Language Server (HLS) configuration
+.hie*
+.hie.yaml
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# GHCi history
+*.ghci
