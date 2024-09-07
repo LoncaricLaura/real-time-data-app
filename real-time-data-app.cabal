@@ -61,13 +61,13 @@ executable real-time-data-app
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    -- other-modules:
+    other-modules: SensorData
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.17.2.1, http-client, http-client-tls, aeson, bytestring
+    build-depends:    base ^>=4.17.2.1, http-client, http-client-tls, http-types, aeson, bytestring, time
 
     -- Directories containing source files.
     hs-source-dirs:   app
