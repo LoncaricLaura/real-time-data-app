@@ -2,38 +2,51 @@
 
 module Main where
 
-import SensorAPI (getDataForYesterday, getDataForLast7Days, getDataForPreviousMonth, fetchDataWithParams)
+import SensorAPI (getDataForYesterday, getDataForLast7Days, getDataForPreviousMonth, fetchDataWithParams, fetchCurrentTemperature)
 import Data.Time (getCurrentTime, utctDay)
-import Statistics (calculateStatistics)
+import Statistics (calculateStatistics, heatIndex)
 import Chart (chartWeeklyStatistics, chartMonthlyStatistics)
+import CurrentTempData
+import Configuration.Dotenv (loadFile, defaultConfig)
+import Data.Maybe (fromMaybe)
+import System.Environment (lookupEnv)
 
 main :: IO ()
 main = do
-    let apiUrl = "http://192.168.1.25/getlogs"
+    loadFile defaultConfig
+    
+    apiUrl <- lookupEnv "API_URL"
+    currentTempUrl <- lookupEnv "CURRENT_TEMPERATURE_URL"
+
+    let apiUrlVal = fromMaybe "API_URL not set" apiUrl
+    let currentTempUrlVal = fromMaybe "CURRENT_TEMPERATURE_URL not set" currentTempUrl
+    
+    putStrLn $ "API URL: " ++ apiUrlVal
+    putStrLn $ "Current Temperature URL: " ++ currentTempUrlVal
 
     -- Fetch all_time data
     putStrLn "Fetching all data..."
-    resultAll <- fetchDataWithParams apiUrl Nothing Nothing Nothing Nothing
+    resultAll <- fetchDataWithParams apiUrlVal Nothing Nothing Nothing Nothing
     case resultAll of
         Left err -> putStrLn $ "Error fetching all data: " ++ err
         Right sensorDataAll -> do
             putStrLn "All data:"
             -- mapM_ print sensorDataAll
             -- calculateStatistics sensorDataAll
-    
+
     -- Fetch data for yesterday
-    putStrLn "Fetching data for yesterday..."
-    resultYesterday <- getDataForYesterday apiUrl
+    putStrLn "\nFetching data for yesterday..."
+    resultYesterday <- getDataForYesterday apiUrlVal
     case resultYesterday of
         Left err -> putStrLn $ "Error fetching data for yesterday: " ++ err
         Right sensorDataYesterday -> do
             putStrLn "Yesterday's Data:"
             -- mapM_ print sensorDataYesterday
             -- calculateStatistics sensorDataYesterday
-
+    
     -- Fetch data for the last 7 days
-    putStrLn "Fetching data for the last 7 days..."
-    resultLast7Days <- getDataForLast7Days apiUrl
+    putStrLn "\nFetching data for the last 7 days..."
+    resultLast7Days <- getDataForLast7Days apiUrlVal
     case resultLast7Days of
         Left err -> putStrLn $ "Error fetching data for the last 7 days: " ++ err
         Right sensorDataLast7Days -> do
@@ -43,8 +56,8 @@ main = do
             chartWeeklyStatistics sensorDataLast7Days    
 
     -- Fetch data for the previous month
-    putStrLn "Fetching data for the previous month..."
-    resultPreviousMonth <- getDataForPreviousMonth apiUrl
+    putStrLn "\nFetching data for the previous month..."
+    resultPreviousMonth <- getDataForPreviousMonth apiUrlVal
     case resultPreviousMonth of
         Left err -> putStrLn $ "Error fetching data for the previous month: " ++ err
         Right sensorDataPreviousMonth -> do
@@ -52,3 +65,15 @@ main = do
             -- mapM_ print sensorDataPreviousMonth
             -- calculateStatistics sensorDataPreviousMonth
             chartMonthlyStatistics sensorDataPreviousMonth
+
+    putStrLn "\nFetching current temperature data..."
+    result <- fetchCurrentTemperature currentTempUrlVal
+    case result of
+        Left err       -> putStrLn $ "Error: " ++ err
+        Right currentTempResp -> do 
+            let temp = temperature currentTempResp
+                hums  = humidity currentTempResp
+            putStrLn $ "Current temperature: " ++ show temp
+            putStrLn $ "Current humidity: " ++ show hums
+            let heatIndexes = heatIndex temp hums
+            putStrLn $ "Heat index - feels like: " ++ show heatIndexes ++ "°C"

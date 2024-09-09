@@ -1,4 +1,4 @@
-module Statistics (calculateStatistics) where
+module Statistics (calculateStatistics, heatIndex) where
 
 import SensorData (SensorData(..))
 import Data.List (genericLength)
@@ -24,7 +24,10 @@ calculateStatistics sensorDataList = do
     putStrLn $ "Mean of Temperature: " ++ show (mean temps) ++ "°C"
     putStrLn $ "Standard deviation Temperature: " ++ show (standardDeviation temps)
     putStrLn $ "Coeffiecient of variation Temperature: " ++ show (coefficientOfVariation temps) ++ "%"
-    
+
+    let corr = correlation temps hums
+    putStrLn $ "Correlation between temperature and humidity: " ++ show corr
+
 -- Helper function to calculate average
 average :: [Double] -> Double
 average xs = sum xs / fromIntegral (length xs)
@@ -43,3 +46,17 @@ coefficientOfVariation :: [Double] -> Double
 coefficientOfVariation xs = let sd = standardDeviation xs
                                 m  = mean xs
                             in sd / m * 100
+
+correlation :: [Double] -> [Double] -> Double
+correlation xs ys = 
+    let mx = mean xs
+        my = mean ys
+        numerator = sum [(x - mx) * (y - my) | (x, y) <- zip xs ys]
+        denominatorX = sqrt $ sum [(x - mx) ^ 2 | x <- xs]
+        denominatorY = sqrt $ sum [(y - my) ^ 2 | y <- ys]
+    in numerator / (denominatorX * denominatorY)
+
+heatIndex :: Double -> Double -> Double
+heatIndex temp hum =
+    let rh = hum / 100
+    in temp - (0.55 - 0.0055 * rh) * (temp - 26.7)

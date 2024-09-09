@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module SensorAPI (fetchDataWithParams, getDataForYesterday, getDataForLast7Days, getDataForPreviousMonth) where
+module SensorAPI (fetchDataWithParams, getDataForYesterday, getDataForLast7Days, getDataForPreviousMonth, fetchCurrentTemperature) where
 
 import Network.HTTP.Client         (newManager, httpLbs, parseRequest, responseBody)
 import Network.HTTP.Client.TLS     (tlsManagerSettings)
@@ -10,6 +10,7 @@ import Network.HTTP.Types.URI      (renderQuery)
 import Data.Time (getCurrentTime, utctDay, addDays, fromGregorian, toGregorian)
 
 import SensorData                  (SensorData(..))
+import CurrentTempData
 
 -- Helper function to create query parameters in the correct format
 buildQueryParams :: Maybe String -> Maybe String -> Maybe String -> Maybe String -> String
@@ -36,6 +37,14 @@ fetchDataWithParams baseUrl fromDate toDate fromTime toTime = do
     let body = responseBody response
     return $ eitherDecode body
 
+fetchCurrentTemperature :: String -> IO (Either String CurrentTempData)
+fetchCurrentTemperature url = do
+    manager <- newManager tlsManagerSettings
+    request <- parseRequest url
+    response <- httpLbs request manager
+    let body = responseBody response
+    return $ eitherDecode body
+    
 -- Function to get data for yesterday
 getDataForYesterday :: String -> IO (Either String [SensorData])
 getDataForYesterday apiUrl = do
