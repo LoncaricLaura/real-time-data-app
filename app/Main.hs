@@ -2,9 +2,10 @@
 
 module Main where
 
-import SensorAPI              (getDataForYesterday, getDataForLast7Days, getDataForPreviousMonth, fetchDataWithParams)
-import Data.Time              (getCurrentTime, utctDay)
+import SensorAPI (getDataForYesterday, getDataForLast7Days, getDataForPreviousMonth, fetchDataWithParams)
+import Data.Time (getCurrentTime, utctDay)
 import Statistics (calculateStatistics)
+import Chart (chartWeeklyStatistics, chartMonthlyStatistics)
 
 main :: IO ()
 main = do
@@ -18,7 +19,7 @@ main = do
         Right sensorDataAll -> do
             putStrLn "All data:"
             -- mapM_ print sensorDataAll
-            calculateStatistics sensorDataAll
+            -- calculateStatistics sensorDataAll
     
     -- Fetch data for yesterday
     putStrLn "Fetching data for yesterday..."
@@ -28,7 +29,7 @@ main = do
         Right sensorDataYesterday -> do
             putStrLn "Yesterday's Data:"
             -- mapM_ print sensorDataYesterday
-            calculateStatistics sensorDataYesterday
+            -- calculateStatistics sensorDataYesterday
 
     -- Fetch data for the last 7 days
     putStrLn "Fetching data for the last 7 days..."
@@ -38,7 +39,8 @@ main = do
         Right sensorDataLast7Days -> do
             putStrLn "Last 7 Days' Data:"
             -- mapM_ print sensorDataLast7Days
-            calculateStatistics sensorDataLast7Days
+            -- calculateStatistics sensorDataLast7Days
+            chartWeeklyStatistics sensorDataLast7Days    
 
     -- Fetch data for the previous month
     putStrLn "Fetching data for the previous month..."
@@ -48,4 +50,5 @@ main = do
         Right sensorDataPreviousMonth -> do
             putStrLn "Previous Month's Data:"
             -- mapM_ print sensorDataPreviousMonth
-            calculateStatistics sensorDataPreviousMonth
+            -- calculateStatistics sensorDataPreviousMonth
+            chartMonthlyStatistics sensorDataPreviousMonth
