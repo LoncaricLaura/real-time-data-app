@@ -1,4 +1,4 @@
-module Statistics (calculateStatistics, heatIndex) where
+module Statistics (calculateStatistics, heatIndex, average) where
 
 import SensorData (SensorData(..))
 import Data.List (genericLength)

@@ -10,6 +10,7 @@ import Data.List (groupBy)
 import Data.Function (on)
 import Data.Maybe (fromMaybe)
 import SensorData (SensorData(..))
+import Statistics (average)
 
 parseDate :: String -> Maybe Day
 parseDate dateStr = parseTimeM True defaultTimeLocale "%Y-%m-%d" dateStr
@@ -25,8 +26,8 @@ aggregateByDay sensorData =
             let
                 temperatures = map (\(_, t, _) -> t) dayData
                 humidities = map (\(_, _, h) -> h) dayData
-                avgTemp = sum temperatures / fromIntegral (length temperatures)
-                avgHum = sum humidities / fromIntegral (length humidities)
+                avgTemp = average temperatures
+                avgHum = average humidities
             in (fst3 (head dayData), avgTemp, avgHum)
 
         fst3 (x, _, _) = x
