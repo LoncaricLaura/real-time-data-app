@@ -6,6 +6,7 @@ import SensorAPI (getDataForYesterday, getDataForLast7Days, getDataForPreviousMo
 import Data.Time (getCurrentTime, utctDay)
 import Statistics (calculateStatistics, heatIndex)
 import Chart (chartWeeklyStatistics, chartMonthlyStatistics)
+import Histogram (plotTemperatureHistogram, plotHumidityHistogram)
 import CurrentTempData
 import Configuration.Dotenv (loadFile, defaultConfig)
 import Data.Maybe (fromMaybe)
@@ -53,7 +54,9 @@ main = do
             putStrLn "Last 7 Days' Data:"
             -- mapM_ print sensorDataLast7Days
             -- calculateStatistics sensorDataLast7Days
-            chartWeeklyStatistics sensorDataLast7Days    
+            chartWeeklyStatistics sensorDataLast7Days
+            plotTemperatureHistogram sensorDataLast7Days "histograms/temperature_histogram_7Days.png"
+            plotHumidityHistogram sensorDataLast7Days "histograms/humidity_histogram_7Days.png"    
 
     -- Fetch data for the previous month
     putStrLn "\nFetching data for the previous month..."
@@ -65,6 +68,8 @@ main = do
             -- mapM_ print sensorDataPreviousMonth
             -- calculateStatistics sensorDataPreviousMonth
             chartMonthlyStatistics sensorDataPreviousMonth
+            plotTemperatureHistogram sensorDataPreviousMonth "histograms/temperature_histogram_PrevMonth.png"
+            plotHumidityHistogram sensorDataPreviousMonth "histograms/humidity_histogram_PrevMonth.png"
 
     putStrLn "\nFetching current temperature data..."
     result <- fetchCurrentTemperature currentTempUrlVal
