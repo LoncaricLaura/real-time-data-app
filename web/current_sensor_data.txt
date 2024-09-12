@@ -1,0 +1,4 @@
+Temperature=23.0°C
+Humidity63.0°C
+Feels like:25.0221795%
+Last measured:"Fri, 13 Sep 2024 00:26:17 GMT"

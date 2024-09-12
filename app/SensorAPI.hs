@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module SensorAPI (fetchDataWithParams, getDataForYesterday, getDataForLast7Days, getDataForPreviousMonth, fetchCurrentTemperature) where
+module SensorAPI (fetchDataWithParams, getDataForYesterday, getDataForLast7Days, getDataForPreviousMonth, fetchCurrentTemperature, saveSensorDataToFile) where
 
 import Network.HTTP.Client         (newManager, httpLbs, parseRequest, responseBody)
 import Network.HTTP.Client.TLS     (tlsManagerSettings)
@@ -8,6 +8,7 @@ import Data.Aeson                  (eitherDecode)
 import qualified Data.ByteString.Char8 as BS
 import Network.HTTP.Types.URI      (renderQuery)
 import Data.Time (getCurrentTime, utctDay, addDays, fromGregorian, toGregorian)
+import System.IO (writeFile)
 
 import SensorData                  (SensorData(..))
 import CurrentTempData
@@ -84,3 +85,14 @@ daysInMonth year month = case month of
 -- check if a year is a leap year
 isLeapYear :: Integer -> Bool
 isLeapYear year = (year `mod` 4 == 0 && year `mod` 100 /= 0) || (year `mod` 400 == 0)
+
+saveSensorDataToFile :: Double -> Double -> Double -> String -> IO ()
+saveSensorDataToFile temp hums heatIndexes dateTime = do
+    let content = unlines
+            [ "Temperature: " ++ show temp ++ "°C"
+            , "Humidity: " ++ show hums ++ "°C"
+            , "Feels like: " ++ show heatIndexes ++ "%"
+            , "Last measured: " ++ show dateTime
+            ]
+    writeFile "web/current_sensor_data.txt" content
+    putStrLn "Sensor data saved to current_sensor_data.txt"
