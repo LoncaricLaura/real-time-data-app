@@ -51,7 +51,7 @@ Funkcionalni pristup omogućava kompoziciju funkcija, gdje se funkcije kombinira
 Funkcijsko programiranje nudi fleksibilnost, predvidljivost i učinkovitost, čineći ga idealnim izborom za aplikacije koje zahtijevaju brzu i pouzdanu obradu podataka u stvarnom vremenu.
 
 
-### Diskusija o prednostima i izazovima u korištenju funkcijskog pristupa za streaming
+## Diskusija o prednostima i izazovima u korištenju funkcijskog pristupa za streaming
 
 Korištenje funkcijskog pristupa za aplikacije koje obrađuju podatke u stvarnom vremenu donosi niz prednosti, ali i izazova. Zbog imutabilnosti funkcijsko programiranje smanjuje rizik od pogrešaka izazvanih promjenom stanja, što je ključno za održavanje stabilnosti sustava prilikom analize vremenskih serija podataka, poput temperature i vlažnosti. Na primjer, svaki put kada se obradi nova vrijednost o temperaturi i vlagi, stvara se nova instanca podataka, bez utjecaja na prethodne vrijednosti.
 
@@ -62,7 +62,7 @@ Još jedna prednost funkcijskog pristupa je jednostavnije testiranje [1]. Funkci
 Iako nudi brojne prednosti, postoje i izazovi. Jedan od izazova je učenje. funkcijsko programiranje zahtijeva drugačiji način razmišljanja u odnosu na imperativni stil, što može biti izazov za programere nisu upoznati s ovom paradigmom. S obzirom da se funkcionlani jezici koriste manje od imperativnih, postoji manje okvira, alata i paketa što može stvoriti probleme pri implementaciji složenijih aplikacija. Budući da se u funkcijskom programiranju varijable ne mijenjaju, već stvaraju nove, to znači dvostruko korištenje memorije što može utjecati na performanse sustava u slučaju obrade velikih količina podataka [9].
 
 
-### Pregled i usporedba s tradicionalnim pristupima u obradi podataka u stvarnom vremenu
+## Pregled i usporedba s tradicionalnim pristupima u obradi podataka u stvarnom vremenu
 
 Imperativno programiranje je paradigma u kojoj se navodi kako program treba postići željeni rezultat [11]. Izvodi izračunavanje kao slijed izjava koje manipuliraju pohranjenim podacima dok se ne postigne željeni rezultat [4]. Takav pristup, može postati ne fleksibilan i teško skalabilan u aplikacijama za obradu podataka u stvarnom vremenu, gdje su potrebne visoke performanse i niska latencija. Imperativni programi koriste sekvencijalnu obradu podataka, što može dovesti do problema s latencijom jer svaka operacija mora biti izvršena prije nego što se pređe na sljedeću. Kôd imperativnog programiranja djeluje poput recepta koji mijenja stanje računala u svakoj liniji, stvarajući i ponovo iskorištavajući varijable [8].
 
@@ -73,7 +73,7 @@ Objektno orijentirano programiranje, iako nudi strukturu kroz enkapsulaciju i na
 Funkcijsko programiranje nudi brojne prednosti za aplikacije koje obrađuju podatke u stvarnom vremenu. Zbog nepromjenjivih podataka i bezstanja funkcija olakšava paralelno procesiranje podataka. Kad se podaci prikupljaju iz više izvora (senzori, web servisi, tokovi podataka), paralelizacija omogućuje bržu obradu bez zabrinutosti za promjene stanja ili konflikte pristupa podacima. Latencija se dodatno smanjuje jer funkcijsko programiranje koristi lijeno izvođenje, gdje se izračuni ne izvršavaju odmah, već tek kada su potrebni. To znači da se sustav ne opterećuje nepotrebnim zadacima, što poboljšava performanse i smanjuje kašnjenja u procesima koa što je agregacija podataka. Također, funkcijsko programiranje nudi bolju skalabilnost jer s rastom podataka, zadaci se mogu paralelno raspodijeliti na više CPU jezgri. Objektno-orjentirano programiranje može biti manje efikasno u aplikacijama koje zahtijevaju brzu obradu velikih količina podataka zbog povećane potrošnje memorije.
 
 
-### Zaključak
+## Zaključak
 
 Funkcijsko programiranje pruža mnoge prednosti u obradi podataka u stvarnom vremenu. Nadmašuje tradicionalne pristupe poput imperativnog i objektno-orjentiranog programiranja zahvaljujući imutabilnosti podataka i bezstanja funkcija, paralelizaciji, smanjenoj latenciji i boljoj skalabilnosti. Ove karakteristike omogućuju učinkovitije upravljanje velikim tokovima podataka, smanjenje rizika od grešaka uzrokovanih promjenama stanja i jednostavnije održavanje koda. Funkcijsko programiranje predstavlja snažan alat za aplikacije koje zahtijevaju visoke performanse i pouzdanost u stvarnom vremenu. 
 
