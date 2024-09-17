@@ -12,6 +12,7 @@ cd $PATH_TO_PROJECT
 . .env
 mkdir -p web/charts
 mkdir -p web/histograms
+mkdir -p logs/
 echo "Current directory: $(pwd)"
 echo "Starting cabal project..."
 cabal run >> ./logs/real-time-data-app_$current_timestamp.log
