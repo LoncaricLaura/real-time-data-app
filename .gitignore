@@ -22,3 +22,7 @@ Thumbs.db
 # GHCi history
 *.ghci
 .env
+
+web/charts
+web/histograms
+web/*.txt
