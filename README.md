@@ -11,7 +11,7 @@ Sustav za obradu podataka u stvarnom vremenu koristi integrirani pristup za uči
 
 <b>Obrada i Vizualizacija Podataka:</b> Prikupljeni podaci se obrađuju korištenjem funkcionalnih pristupa u Haskellu što omogućuje manipulaciju tokovima podataka. Funkcije poput map i filter koriste se za kontinuiranu transformaciju i filtriranje podataka, dok se agregacija koristi za izračun statističkih pokazatelja kao što su prosječna temperatura i vlažnost. Haskell je odabran jer omogućuje visoku razinu modularnosti i efikasnosti za obradu velikih skupova podataka. Za analizu se generiraju grafički prikazi, uključujući grafikone i histograme, koji vizualiziraju promjene u temperaturi i vlagi tijekom vremena.
 
-<b>API i Server:</b> Sustav koristi [Flask API](https://github.com/mvisnjic/project_iot) koji omogućuje kontrolu funkcionalnosti sustava kao što su kontrola svijetla i pristup podacima putem REST API-ja. Flask aplikacija se implementira i poslužuje uz pomoć [WSGI Gunicorn](https://flask.palletsprojects.com/en/3.0.x/deploying/gunicorn/) servera, koji omogućava učinkovito pokretanje aplikacije u produkcijskom okruženju. [Nginx servera](https://docs.gunicorn.org/en/latest/deploy.html) služi kao web server i reverse proxy, upravljajući HTTP zahtjevima i raspodjelom opterećenja između poslužitelja. Omogućuje obradu i distribuciju zahtjeva kroz sustav, optimizirajući performanse streaminga podataka i pružajući stabilnost i pouzdanost za aplikacije koje zahtijevaju rad u stvarnom vremenu.
+<b>API i Server:</b> Sustav koristi [Flask API](https://gitlab2.unipu.hr/mvisnjic/project-iot) koji omogućuje kontrolu funkcionalnosti sustava kao što su kontrola svijetla i pristup podacima putem REST API-ja. Flask aplikacija se implementira i poslužuje uz pomoć [WSGI Gunicorn](https://flask.palletsprojects.com/en/3.0.x/deploying/gunicorn/) servera, koji omogućava učinkovito pokretanje aplikacije u produkcijskom okruženju. [Nginx servera](https://docs.gunicorn.org/en/latest/deploy.html) služi kao web server i reverse proxy, upravljajući HTTP zahtjevima i raspodjelom opterećenja između poslužitelja. Omogućuje obradu i distribuciju zahtjeva kroz sustav, optimizirajući performanse streaminga podataka i pružajući stabilnost i pouzdanost za aplikacije koje zahtijevaju rad u stvarnom vremenu.
 
 
 ## Funkcionalnosti
@@ -77,6 +77,24 @@ Funkcijsko programiranje nudi brojne prednosti za aplikacije koje obrađuju poda
 
 Funkcijsko programiranje pruža mnoge prednosti u obradi podataka u stvarnom vremenu. Nadmašuje tradicionalne pristupe poput imperativnog i objektno-orjentiranog programiranja zahvaljujući imutabilnosti podataka i bezstanja funkcija, paralelizaciji, smanjenoj latenciji i boljoj skalabilnosti. Ove karakteristike omogućuju učinkovitije upravljanje velikim tokovima podataka, smanjenje rizika od grešaka uzrokovanih promjenama stanja i jednostavnije održavanje koda. Funkcijsko programiranje predstavlja snažan alat za aplikacije koje zahtijevaju visoke performanse i pouzdanost u stvarnom vremenu. 
 
+
+## Koraci za pokretanje projekta
+
+```
+git clone git@gitlab2.unipu.hr:laloncar/real-time-data-app.git
+```
+
+```
+cp .env.example .env
+```
+
+```
+cabal update && cabal build
+```
+
+```
+./start-statistics $(pwd)
+```
 
 ### Literatura
 
