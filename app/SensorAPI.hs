@@ -91,7 +91,7 @@ saveSensorDataToFile temp hums heatIndexes dateTime = do
     let content = unlines
             [ "Temperature: " ++ show temp ++ "°C"
             , "Humidity: " ++ show hums ++ "°C"
-            , "Feels like: " ++ show heatIndexes ++ "%"
+            , "Fells like: " ++ show heatIndexes ++ "°C"
             , "Last measured: " ++ show dateTime
             ]
     writeFile "web/current_sensor_data.txt" content

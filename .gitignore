@@ -26,3 +26,4 @@ Thumbs.db
 web/charts
 web/histograms
 web/*.txt
+logs/
