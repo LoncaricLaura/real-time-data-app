@@ -90,7 +90,7 @@ saveSensorDataToFile :: Double -> Double -> Double -> String -> IO ()
 saveSensorDataToFile temp hums heatIndexes dateTime = do
     let content = unlines
             [ "Temperature: " ++ show temp ++ "°C"
-            , "Humidity: " ++ show hums ++ "°C"
+            , "Humidity: " ++ show hums ++ "%"
             , "Feels like: " ++ show heatIndexes ++ "°C"
             , "Last measured: " ++ show dateTime
             ]
